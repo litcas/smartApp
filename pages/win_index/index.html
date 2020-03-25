@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我</title>
+    <script src="../../script/flexible.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/win_index/index.css" />
+    <link rel="stylesheet" href="../../res/vant/index.css">
+</head>
+
+<body>
+    <div id="wrap" v-cloak>
+        <div id="viewDiv">
+
+        </div>
+        <div class="map-header">
+            <template v-if="fwcxing">
+              <van-notice-bar style="width:100%;" color="#1989fa"  background="#ecf9ff" text="请在地图上绘制多边形范围，点击提交查询" left-icon="volume-o"></van-notice-bar>
+            </template>
+            <template v-else>
+              <div class="map-header-user" @click="openW('win_my')"></div>
+              <van-search shape="round" placeholder="请输入搜索关键词" @clear="onClear" show-action v-model="searchValue" @search="onSearch">
+                 <div slot="action" @click="onSearch">搜索</div>
+              </van-search>
+            </template>
+        </div>
+
+
+        <div class="map-aside-left">
+            <div class="fwcx-btn">
+                <img src="../../image/mylocation.png" class="fwcx-img" @click="drawLocation()">
+                <p class="fwcx-title">我的位置</p>
+            </div>
+        </div>
+        <div class="map-aside-right">
+            <div class="fwcx-btn" @click="changeMapClick()">
+                <img src="../../image/fwcx.png" class="fwcx-img" >
+                <p class="fwcx-title">图层切换</p>
+            </div>
+            <div class="fwcx-btn"  @click="fwcxCLick()">
+                <img src="../../image/fwcx.png" class="fwcx-img">
+                <p class="fwcx-title">范围查询</p>
+            </div>
+            <!-- <div class="fwcx-btn" @click="openW('win_cloudquery_result')">
+                <img src="../../image/cxjg.png" class="fwcx-img" >
+                <p class="fwcx-title">查询结果</p>
+            </div> -->
+            <div class="fwcx-btn" @click="openW('win_prooftask')">
+                <img src="../../image/jzrw.png" class="fwcx-img" >
+                <p class="fwcx-title">举证任务</p>
+            </div>
+        </div>
+        <div class="map-aside-bottom" v-if="fwcxing">
+            <van-button type="info" round size="normal" class="sumit" @click="fwcxComplete">提 交</van-button>
+            <van-button type="info" round size="normal" class="cancal" @click="fwcxCancal">取 消</van-button>
+        </div>
+
+
+        <van-popup v-model="mapShowPicker" position="bottom">
+            <van-picker show-toolbar :columns="mapColumns" :default-index="mapColumnsDefault" @cancel="mapShowPicker = false" @confirm="changeMapOnConfirm"></van-picker>
+        </van-popup>
+    </div>
+</body>
+<script src="../../script/vue.min.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../res/vant/vant.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../js/win_index/index.js"></script>
+
+
+<script src="../../res/arcgisapi/GCJ2WGS.js"></script>
+<script src="../../res/arcgisapi/init.js"></script>
+<script src="../../res/arcgisapi/map.config.js"></script>
+<script src="../../res/arcgisapi/main/map.js"></script>
+<link rel="stylesheet" type="text/css" href="http://218.77.59.2:8601/arcgisapi/4.13/esri/themes/light/main.css" />
+
+</html>
